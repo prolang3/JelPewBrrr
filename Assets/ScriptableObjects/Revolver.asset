@@ -16,7 +16,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   Bullet: {fileID: 807101211019533551, guid: 4156bc4135dd7d0448f1e74db6cc9ee8, type: 3}
+  Sprite: {fileID: 21300000, guid: cab68b8f847c17f47be2a976aebe62b7, type: 3}
   Name: Sample Text
-  BaseDamage: 1
-  UseDelay: 0.15
+  BaseDamage: 4
+  UseDelay: 0.25
   FireSound: {fileID: 8300000, guid: 3ff762fd3aebc074fac853965850db8f, type: 3}
+  PositionOffset: {x: 0.3, y: -0.1}
+  FireOffset: {x: 0.25, y: 0.15}

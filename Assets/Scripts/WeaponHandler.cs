@@ -11,7 +11,7 @@ public class WeaponHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Weapon.Init(gameObject);
     }
 
     // Update is called once per frame
@@ -20,10 +20,12 @@ public class WeaponHandler : MonoBehaviour
         var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseWorldPos.z = 0f; // zero z
 
+        Weapon.UpdateLocalPosition(gameObject.transform.position, mouseWorldPos);
+
         if (Input.GetMouseButton(0) && cooldown == 0)
         {
             cooldown = Weapon.UseDelay;
-            Weapon.Fire(gameObject.transform.position, mouseWorldPos);
+            Weapon.Fire(mouseWorldPos);
         }
 
         if (cooldown > 0)

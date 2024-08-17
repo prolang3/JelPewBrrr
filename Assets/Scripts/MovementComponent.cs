@@ -6,13 +6,15 @@ using UnityEngine.UIElements;
 public class MovementComponent : MonoBehaviour
 {
     public float speed = 1f;
-    public bool isFacingRight = true;
     public SpriteRenderer Sprite;
     public Rigidbody2D rb;
 
     public Vector2 Velocity = Vector2.zero;
+    public bool isFacingRight = true;
 
     private Animator animator;
+
+    public bool doesLookAtMouse = false;
 
     void Start()
     {
@@ -40,6 +42,30 @@ public class MovementComponent : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0f; // zero z
+
+        if (mouseWorldPos.x < transform.position.x)
+        {
+            isFacingRight = false;
+        }
+        else if (mouseWorldPos.x > transform.position.x)
+        {
+            isFacingRight = true;
+        }
+
+            if (isFacingRight)
+        {
+            Sprite.flipX = false;
+        }
+        else
+        {
+            Sprite.flipX = true;
+        }
+    }
+
     void Move()
     {
         Vector2 direction = Vector2.zero;
@@ -62,21 +88,8 @@ public class MovementComponent : MonoBehaviour
             direction.x += -1;
         }
 
-        if ((isFacingRight && direction.x < 0) || (!isFacingRight && direction.x > 0))
-        {
-            Flip();
-        }
+        
 
         Velocity = direction.normalized * speed;
-    }
-
-    void Flip()
-    {
-        if (Sprite != null)
-        {
-            Sprite.flipX = !Sprite.flipX;
-        }
-        isFacingRight = !isFacingRight;
-
     }
 }
