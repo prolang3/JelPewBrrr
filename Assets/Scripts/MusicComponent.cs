@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine;
 public class MusicComponent : MonoBehaviour
 {
     public AudioClip Music;
+    public float Volume = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +19,7 @@ public class MusicComponent : MonoBehaviour
             MusicSoundSource.transform.localPosition = transform.position;
             MusicSoundSource.clip = Music;
             MusicSoundSource.Play();
-            //Destroy(go, 1);
+            MusicSoundSource.volume = Volume;
         }
     }
 

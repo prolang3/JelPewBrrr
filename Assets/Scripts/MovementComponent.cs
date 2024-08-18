@@ -5,7 +5,8 @@ using UnityEngine.UIElements;
 
 public class MovementComponent : MonoBehaviour
 {
-    public float speed = 1f;
+    public float Speed = 1f;
+    public Vector2 Direction = Vector2.zero;
     public SpriteRenderer Sprite;
     public Rigidbody2D rb;
 
@@ -13,8 +14,6 @@ public class MovementComponent : MonoBehaviour
     public bool isFacingRight = true;
 
     private Animator animator;
-
-    public bool doesLookAtMouse = false;
 
     void Start()
     {
@@ -34,62 +33,10 @@ public class MovementComponent : MonoBehaviour
 
     void FixedUpdate()
     {
-        Move();
-        rb.velocity = Velocity;
+        rb.velocity = Direction.normalized * Speed;
         if (animator != null)
         {
             animator.SetFloat("Speed", Mathf.Sqrt(Mathf.Pow(Velocity.x, 2) + Mathf.Pow(Velocity.y, 2)));
         }
-    }
-
-    void Update()
-    {
-        var mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f; // zero z
-
-        if (mouseWorldPos.x < transform.position.x)
-        {
-            isFacingRight = false;
-        }
-        else if (mouseWorldPos.x > transform.position.x)
-        {
-            isFacingRight = true;
-        }
-
-            if (isFacingRight)
-        {
-            Sprite.flipX = false;
-        }
-        else
-        {
-            Sprite.flipX = true;
-        }
-    }
-
-    void Move()
-    {
-        Vector2 direction = Vector2.zero;
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            direction.y += 1;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            direction.y += -1;
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            direction.x += 1;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            direction.x += -1;
-        }
-
-        
-
-        Velocity = direction.normalized * speed;
     }
 }

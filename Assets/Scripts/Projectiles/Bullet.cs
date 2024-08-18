@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public GameObject Shooter;
     public float speed = 1f;
     public float lifeTime = 5f;
     public float Damage = 1f;
@@ -24,13 +25,14 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<HealthComponent>() != null)
-        {
-            collision.gameObject.GetComponent<HealthComponent>().Health -= Damage;
-        }
+        
 
-        if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject != Shooter && !collision.gameObject.CompareTag("Bullet"))
         {
+            if (collision.gameObject.GetComponent<HealthComponent>() != null)
+            {
+                collision.gameObject.GetComponent<HealthComponent>().Health -= Damage;
+            }
             Destroy(gameObject);
         }
     }

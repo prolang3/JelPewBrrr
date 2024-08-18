@@ -4,8 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "Weapon Data", menuName = "Scriptable Object/Weapon Data", order = 1)]
-public class WeaponData : ScriptableObject
+public class WeaponData : MonoBehaviour
 {
     public UnityEvent OnHit;
 
@@ -16,61 +15,58 @@ public class WeaponData : ScriptableObject
     public int BaseDamage = 1;
     public float UseDelay = 0.3f;
     public AudioClip FireSound;
-    [SerializeField]
-    private Vector2 PositionOffset = Vector2.zero;
-    [SerializeField]
-    private Vector2 FireOffset = Vector2.zero;
+    public Vector2 PositionOffset = Vector2.zero;
+    public Vector2 FireOffset = Vector2.zero;
 
-    private GameObject gameObject;
-    private SpriteRenderer spriteRenderer;
+
+    public SpriteRenderer spriteRenderer;
     private bool isFacingRight = true;
+    public GameObject User;
+    public GameObject Weapon;
 
-    public void Init(GameObject User)
+    public void Init(GameObject user, GameObject weapon)
     {
-        gameObject = new GameObject("gun");
-        gameObject.transform.parent = User.transform;
-        gameObject.transform.localPosition = PositionOffset;
-
-        spriteRenderer = gameObject.AddComponent<SpriteRenderer>();
-        spriteRenderer.sprite = Sprite;
-        spriteRenderer.sortingOrder = 1;
-
+        User = user;
+        Weapon = weapon;
     }
 
     public void UpdateLocalPosition(Vector3 originPosition, Vector3 targetPosition)
     {
         Vector3 aimDirection = (targetPosition - originPosition).normalized;
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        gameObject.transform.eulerAngles = new Vector3(0, 0, angle);
+        Weapon.transform.eulerAngles = new Vector3(0, 0, angle);
 
         if (aimDirection.x > 0.01f)
         {
             isFacingRight = true;
             spriteRenderer.flipY = false;
-            gameObject.transform.localPosition = PositionOffset;
+            Weapon.transform.localPosition = PositionOffset;
         }
         if (aimDirection.x < 0.01f)
         {
             isFacingRight = false;
             spriteRenderer.flipY = true;
-            gameObject.transform.localPosition = new Vector2(-PositionOffset.x, PositionOffset.y);
+            Weapon.transform.localPosition = new Vector2(-PositionOffset.x, PositionOffset.y);
         }
     }
 
-    public void Fire(Vector3 targetPosition)
+    public GameObject Fire(Vector3 targetPosition)
     {
-        Vector3 originPosition = (Quaternion.Euler(0f, 0f, gameObject.transform.eulerAngles.z) * FireOffset) + new Vector3(gameObject.transform.position.x, gameObject.transform.position.y);
+        Vector3 originPosition = (Quaternion.Euler(0f, 0f, Weapon.transform.eulerAngles.z) * FireOffset) + new Vector3(Weapon.transform.position.x, Weapon.transform.position.y);
         if (!isFacingRight)
         {
-            originPosition = (Quaternion.Euler(0f, 0f, gameObject.transform.eulerAngles.z) * new Vector2(FireOffset.x, -FireOffset.y)) + new Vector3(gameObject.transform.position.x, gameObject.transform.position.y);
+            originPosition = (Quaternion.Euler(0f, 0f, Weapon.transform.eulerAngles.z) * new Vector2(FireOffset.x, -FireOffset.y)) + new Vector3(Weapon.transform.position.x, Weapon.transform.position.y);
         }
 
         Vector3 diff = targetPosition - originPosition;
         diff.Normalize();
-        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-        quaternion rot = Quaternion.Euler(0f, 0f, rot_z - 90);
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg - 90;
+        quaternion rot = Quaternion.Euler(0f, 0f, rot_z);
         GameObject newBullet = Instantiate(Bullet, originPosition, rot);
-        newBullet.GetComponent<Bullet>().Damage = BaseDamage;
+        Projectile newBulletComponent = newBullet.GetComponent<Projectile>();
+        newBullet.transform.rotation =  Quaternion.Euler(0,0, newBulletComponent.rotationOffset + rot_z);
+        newBulletComponent.Shooter = User;
+        newBulletComponent.Damage = BaseDamage;
         if (FireSound != null)
         {
             GameObject go = new GameObject();
@@ -80,6 +76,8 @@ public class WeaponData : ScriptableObject
             FireSoundSource.Play();
             Destroy(go, 1);
         }
+
+        return newBullet;
     }
 }
 
