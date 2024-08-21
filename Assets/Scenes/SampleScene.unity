@@ -25337,7 +25337,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.25
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000
@@ -26072,6 +26072,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e4cf813e105dcb429c44ebd3e09ff56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentState: Loading
+  MinRange: 0
+  MaxRange: 10
+  AttackBurstCooldown: 3.5
+  AttackBurstDuration: 0.7
   target: {fileID: 982104129}
 --- !u!114 &2096279322
 MonoBehaviour:
@@ -26108,7 +26113,7 @@ MonoBehaviour:
   Sprite: {fileID: 21300000, guid: cab68b8f847c17f47be2a976aebe62b7, type: 3}
   Name: Dagger
   BaseDamage: 1
-  UseDelay: 0.3
+  UseDelay: 0.2
   FireSound: {fileID: 8300000, guid: 17779488b0ebad1479ab4792a89efe62, type: 3}
   PositionOffset: {x: 0.35, y: -0.15}
   FireOffset: {x: 0.15, y: 0.15}
