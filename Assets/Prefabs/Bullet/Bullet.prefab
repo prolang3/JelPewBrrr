@@ -100,10 +100,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d856ed1f9fae0234a8c9ce3f2d32be92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Shooter: {fileID: 0}
   speed: 20
   lifeTime: 5
   Damage: 1
   rb: {fileID: 7628995420921648305}
+  rotationOffset: 0
+  Pierce: 0
+  doesflip: 0
+  doesFollowMouse: 0
+  spriteRenderer: {fileID: 0}
 --- !u!50 &7628995420921648305
 Rigidbody2D:
   serializedVersion: 4

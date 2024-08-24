@@ -71,7 +71,6 @@ public class PlayerInput : MonoBehaviour
             movementComponent.Sprite.flipX = true;
         }
 
-        Debug.Log(weaponData);
         weaponData.UpdateLocalPosition(gameObject.transform.position, mouseWorldPos);
 
         if (Input.GetMouseButton(0))

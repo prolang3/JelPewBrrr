@@ -175,5 +175,6 @@ MonoBehaviour:
   Damage: 1
   rb: {fileID: 0}
   rotationOffset: 90
-  doesflip: 0
+  Pierce: 9999
+  doesflip: 1
   spriteRenderer: {fileID: 0}

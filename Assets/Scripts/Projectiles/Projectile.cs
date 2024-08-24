@@ -11,7 +11,9 @@ public class Projectile : MonoBehaviour
     public float Damage = 1f;
     public Rigidbody2D rb;
     public float rotationOffset = 0;
+    public int Pierce = 0;
     public bool doesflip = false;
+    public bool doesFollowMouse = false;
 
     public SpriteRenderer spriteRenderer;
 
@@ -27,6 +29,23 @@ public class Projectile : MonoBehaviour
     public virtual void Update()
     {
         rb.velocity = gameObject.transform.up * speed;
+        if (doesFollowMouse)
+        {
+            FollowMouse();
+        }
+    }
+
+    public virtual void FollowMouse()
+    {
+
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0f; // zero z
+        Vector3 diff = mouseWorldPos - transform.position;
+        diff.Normalize();
+        float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg - 90;
+        quaternion rot = Quaternion.Euler(0f, 0f, rotationOffset + rot_z);
+
+        transform.rotation = rot;
     }
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
@@ -38,8 +57,15 @@ public class Projectile : MonoBehaviour
             if (collision.gameObject.GetComponent<HealthComponent>() != null)
             {
                 collision.gameObject.GetComponent<HealthComponent>().Health -= Damage;
+                if (--Pierce <= 0)
+                {
+                    Destroy(gameObject);
+                }
             }
-            Destroy(gameObject);
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

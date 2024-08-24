@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DaggerSlash : Projectile
 {
+    private List<Collider2D> IgnoreList = new List<Collider2D>();
+
     public override void Awake()
     {
         base.Awake();
@@ -13,20 +15,23 @@ public class DaggerSlash : Projectile
     public void Start()
     {
         print(Shooter);
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, .5f);
-        foreach (var hitCollider in hitColliders)
-        {
-            if (hitCollider.gameObject != Shooter && !hitCollider.gameObject.CompareTag("Bullet") && hitCollider.GetComponent<HealthComponent>() != null)
-            {
-                hitCollider.gameObject.GetComponent<HealthComponent>().Health -= Damage;
-            }
-        }
 
     }
 
     // Update is called once per frame
     public override void Update()
     {
+        FollowMouse();
+        Collider2D[]  hitColliders = Physics2D.OverlapCircleAll(transform.position, .6f);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.gameObject != Shooter && !hitCollider.gameObject.CompareTag("Bullet") && hitCollider.GetComponent<HealthComponent>() != null && !IgnoreList.Contains(hitCollider))
+            {
+                IgnoreList.Add(hitCollider);
+                hitCollider.gameObject.GetComponent<HealthComponent>().Health -= Damage;
+            }
+        }
+
         if (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 270)
         {
             spriteRenderer.flipY = true;
@@ -35,7 +40,6 @@ public class DaggerSlash : Projectile
         {            
             spriteRenderer.flipY = false;
         }
-        print(transform.eulerAngles.z);
     }
 
     public override void OnTriggerEnter2D(Collider2D collision)

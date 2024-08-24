@@ -16,8 +16,6 @@ public class Enemy : MonoBehaviour
     private float AttackBurstTimer = 0f;
     private float AttackBurstTimeLeft = 0f;
 
-    private bool IsAttacking = false;
-
     [SerializeField]
     private GameObject target;
     private MovementComponent movementComponent;

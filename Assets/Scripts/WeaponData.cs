@@ -36,18 +36,22 @@ public class WeaponData : MonoBehaviour
         float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         Weapon.transform.eulerAngles = new Vector3(0, 0, angle);
 
+        Vector3 newOffset = PositionOffset;
+        print(aimDirection);
         if (aimDirection.x > 0.01f)
         {
             isFacingRight = true;
             spriteRenderer.flipY = false;
-            Weapon.transform.localPosition = PositionOffset;
+            Weapon.transform.localPosition = Quaternion.Euler(0f, 0f, angle) * newOffset;
         }
         if (aimDirection.x < 0.01f)
         {
             isFacingRight = false;
             spriteRenderer.flipY = true;
-            Weapon.transform.localPosition = new Vector2(-PositionOffset.x, PositionOffset.y);
+            Weapon.transform.localPosition = Quaternion.Euler(0f, 0f, angle) * new Vector2(newOffset.x, -newOffset.y);
         }
+
+        
     }
 
     public GameObject Fire(Vector3 targetPosition)
