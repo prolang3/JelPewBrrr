@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6167139207329688958}
   m_Layer: 0
   m_Name: Dagger
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,4 +177,5 @@ MonoBehaviour:
   rotationOffset: 90
   Pierce: 9999
   doesflip: 1
+  doesFollowMouse: 0
   spriteRenderer: {fileID: 0}

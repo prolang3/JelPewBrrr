@@ -10,8 +10,9 @@ public class Enemy : MonoBehaviour
 
     public float MinRange = 0f;
     public float MaxRange = 10f;
-    public float AttackBurstCooldown = 1f;
+    public float AttackBurstCooldown = .5f;
     public float AttackBurstDuration = 0.5f;
+    public float RandomBurstCooldown = 1.2f;
 
     private float AttackBurstTimer = 0f;
     private float AttackBurstTimeLeft = 0f;
@@ -20,20 +21,24 @@ public class Enemy : MonoBehaviour
     private GameObject target;
     private MovementComponent movementComponent;
     private WeaponHandler weaponHandler;
-    private WeaponData weaponData;
+    private Weapon weapon;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if (target == null)
+        {
+            target = GameObject.FindGameObjectWithTag("Player");
+        }
         weaponHandler = GetComponent<WeaponHandler>();
         if (movementComponent == null)
         {
             movementComponent = gameObject.GetComponent<MovementComponent>();
         }
-        if (weaponData == null)
+        if (weapon == null)
         {
-            weaponData = gameObject.GetComponent<WeaponData>();
+            weapon = gameObject.GetComponent<Weapon>();
         }
     }
 
@@ -60,7 +65,7 @@ public class Enemy : MonoBehaviour
 
         if (AttackBurstTimer <= 0 && AttackBurstTimeLeft <= 0)
         {
-            AttackBurstTimer = AttackBurstCooldown;
+            AttackBurstTimer = AttackBurstCooldown + Random.Range(0, RandomBurstCooldown);
             AttackBurstTimeLeft = AttackBurstDuration;
         }
 
@@ -76,7 +81,7 @@ public class Enemy : MonoBehaviour
 
         movementComponent.Direction = (target.transform.position - transform.position).normalized;
 
-        weaponData.UpdateLocalPosition(transform.position, target.transform.position);
+        weapon.UpdateLocalPosition(transform.position, target.transform.position);
         
     }
 }

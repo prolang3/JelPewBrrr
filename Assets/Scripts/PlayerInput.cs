@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
 {
     private MovementComponent movementComponent;
     private WeaponHandler weaponHandler;
-    private WeaponData weaponData;
+    private Weapon weapon;
 
     void Start()
     {
@@ -20,9 +20,9 @@ public class PlayerInput : MonoBehaviour
         {
             weaponHandler = GetComponent<WeaponHandler>();
         }
-        if (weaponData == null)
+        if (weapon == null)
         {
-            weaponData = gameObject.GetComponent<WeaponData>();
+            weapon = gameObject.GetComponent<Weapon>();
         }
     }
 
@@ -71,7 +71,8 @@ public class PlayerInput : MonoBehaviour
             movementComponent.Sprite.flipX = true;
         }
 
-        weaponData.UpdateLocalPosition(gameObject.transform.position, mouseWorldPos);
+        print(weapon);
+        weapon.UpdateLocalPosition(gameObject.transform.position, mouseWorldPos);
 
         if (Input.GetMouseButton(0))
         {

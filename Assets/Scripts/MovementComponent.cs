@@ -13,7 +13,7 @@ public class MovementComponent : MonoBehaviour
     public Vector2 Velocity = Vector2.zero;
     public bool isFacingRight = true;
 
-    private Animator animator;
+    public Animator animator;
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class MovementComponent : MonoBehaviour
         {
             rb = GetComponent<Rigidbody2D>();
         }
-        if(animator == null)
+        if (animator == null)
         {
             animator = GetComponent<Animator>();
         }
@@ -36,7 +36,7 @@ public class MovementComponent : MonoBehaviour
         rb.velocity = Direction.normalized * Speed;
         if (animator != null)
         {
-            animator.SetFloat("Speed", Mathf.Sqrt(Mathf.Pow(Velocity.x, 2) + Mathf.Pow(Velocity.y, 2)));
+            animator.SetFloat("Speed", Mathf.Abs(Direction.x) + Mathf.Abs(Direction.y));
         }
     }
 }

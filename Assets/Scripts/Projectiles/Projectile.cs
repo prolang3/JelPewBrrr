@@ -50,22 +50,27 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-
-
-        if (collision.gameObject != Shooter && !collision.gameObject.CompareTag("Bullet"))
+        if (!collision.gameObject || collision.gameObject.CompareTag(Shooter.tag) || collision.gameObject.CompareTag("Bullet"))
         {
-            if (collision.gameObject.GetComponent<HealthComponent>() != null)
+            return;
+        }
+
+        if (collision.gameObject == Shooter)
+        {
+            return;
+        }
+        if (collision.gameObject.GetComponent<HealthComponent>() == null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            collision.gameObject.GetComponent<HealthComponent>().Health -= Damage;
+            if (--Pierce > 0)
             {
-                collision.gameObject.GetComponent<HealthComponent>().Health -= Damage;
-                if (--Pierce <= 0)
-                {
-                    Destroy(gameObject);
-                }
+                return;
             }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

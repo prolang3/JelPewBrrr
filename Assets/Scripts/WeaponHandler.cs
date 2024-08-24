@@ -5,33 +5,30 @@ using UnityEngine;
 public class WeaponHandler : MonoBehaviour
 {
     [SerializeField]
-    public GameObject weapon;
-    public WeaponData weaponData;
+    public GameObject WeaponObject;
+    public Weapon Weapon;
     public float cooldown = 0f;
     public bool isMelee = false;
 
-    private SpriteRenderer spriteRenderer;
-
     void Start()
     {
-        weapon = new GameObject("gun");
-        weaponData = GetComponent<WeaponData>();
-        weaponData.Init(gameObject, weapon);
+        WeaponObject = new GameObject("gun");
+        Weapon = GetComponent<Weapon>();
 
-        weapon.transform.parent = gameObject.transform;
-        weapon.transform.localPosition = weaponData.PositionOffset;
+        WeaponObject.transform.parent = gameObject.transform;
 
-        weaponData.spriteRenderer = weapon.AddComponent<SpriteRenderer>();
-        weaponData.spriteRenderer.sprite = weaponData.Sprite;
-        weaponData.spriteRenderer.sortingOrder = 1;
+        Weapon.spriteRenderer = WeaponObject.AddComponent<SpriteRenderer>();
+        Weapon.spriteRenderer.sortingOrder = 1;
+
+        Weapon.Init(gameObject, WeaponObject);
     }
 
     public void Attack(Vector2 mouseWorldPos)
     {
         if (cooldown <= 0)
         {
-            cooldown = weaponData.UseDelay;
-            GameObject bullet = weaponData.Fire(mouseWorldPos);
+            cooldown = Weapon.UseDelay;
+            GameObject bullet = Weapon.Fire(mouseWorldPos);
             if (isMelee)
             {
                 bullet.transform.parent = transform;
