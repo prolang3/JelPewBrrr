@@ -71,11 +71,11 @@ public class PlayerInput : MonoBehaviour
             movementComponent.Sprite.flipX = true;
         }
 
-        print(weapon);
         weapon.UpdateLocalPosition(gameObject.transform.position, mouseWorldPos);
 
         if (Input.GetMouseButton(0))
         {
+            print("click!");
             weaponHandler.Attack(mouseWorldPos);
         }
     }

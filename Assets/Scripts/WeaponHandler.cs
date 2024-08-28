@@ -8,7 +8,6 @@ public class WeaponHandler : MonoBehaviour
     public GameObject WeaponObject;
     public Weapon Weapon;
     public float cooldown = 0f;
-    public bool isMelee = false;
 
     void Start()
     {
@@ -23,18 +22,8 @@ public class WeaponHandler : MonoBehaviour
         Weapon.Init(gameObject, WeaponObject);
     }
 
-    public void Attack(Vector2 mouseWorldPos)
+    private void Update()
     {
-        if (cooldown <= 0)
-        {
-            cooldown = Weapon.UseDelay;
-            GameObject bullet = Weapon.Fire(mouseWorldPos);
-            if (isMelee)
-            {
-                bullet.transform.parent = transform;
-            }
-        }
-
         if (cooldown > 0)
         {
             if (Time.deltaTime > cooldown)
@@ -45,6 +34,20 @@ public class WeaponHandler : MonoBehaviour
             {
                 cooldown -= Time.deltaTime;
             }
+        }
+    }
+
+    public void Attack(Vector2 mouseWorldPos)
+    {
+        if (cooldown <= 0)
+        {
+            cooldown = Weapon.UseDelay;
+            GameObject bullet = Weapon.Fire(mouseWorldPos);
+            if (Weapon.WeaponData.isMelee == true)
+            {
+                bullet.transform.parent = transform;
+            }
+            cooldown = Weapon.WeaponData.UseDelay;
         }
     }
 }

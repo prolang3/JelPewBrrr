@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using Random = UnityEngine.Random;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,7 +17,7 @@ public class Enemy : MonoBehaviour
     public float AttackBurstDuration = 0.5f;
     public float RandomBurstCooldown = 1.2f;
 
-    private float AttackBurstTimer = 0f;
+    private float AttackBurstTimer = 0.1f;
     private float AttackBurstTimeLeft = 0f;
 
     [SerializeField]
@@ -45,6 +48,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        weapon.UpdateLocalPosition(transform.position, target.transform.position);
+
         if (target.transform.position.x < transform.position.x)
         {
             movementComponent.isFacingRight = false;
@@ -63,6 +68,40 @@ public class Enemy : MonoBehaviour
             movementComponent.Sprite.flipX = true;
         }
 
+        if (CurrentState != "Active")
+        {
+            return;
+        }
+
+        if (weaponHandler.Weapon.WeaponData.isMelee == false)
+        {
+            if ((target.transform.position - transform.position).magnitude <= MinRange)
+            {
+                movementComponent.Direction = -(target.transform.position - transform.position).normalized;
+            }
+            else
+            
+            if ((target.transform.position - transform.position).magnitude >= MaxRange)
+            {
+                movementComponent.Direction = (target.transform.position - transform.position).normalized;
+            }
+            else
+            {
+                //movementComponent.Direction /= 2;
+                Attack();
+            }
+        }
+        else
+        {
+            movementComponent.Direction = (target.transform.position - transform.position).normalized;
+            Attack();
+        }
+
+        
+    }
+
+    void Attack()
+    {
         if (AttackBurstTimer <= 0 && AttackBurstTimeLeft <= 0)
         {
             AttackBurstTimer = AttackBurstCooldown + Random.Range(0, RandomBurstCooldown);
@@ -78,10 +117,5 @@ public class Enemy : MonoBehaviour
         {
             AttackBurstTimer -= Time.deltaTime;
         }
-
-        movementComponent.Direction = (target.transform.position - transform.position).normalized;
-
-        weapon.UpdateLocalPosition(transform.position, target.transform.position);
-        
     }
 }

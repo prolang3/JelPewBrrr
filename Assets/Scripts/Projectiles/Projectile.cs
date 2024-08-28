@@ -50,11 +50,14 @@ public class Projectile : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!collision.gameObject || collision.gameObject.CompareTag(Shooter.tag) || collision.gameObject.CompareTag("Bullet"))
+        if (collision == null || collision.gameObject == null || Shooter == null)
         {
             return;
         }
-
+        if (collision.gameObject.CompareTag(Shooter.tag) || collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Room"))
+        {
+            return;
+        }
         if (collision.gameObject == Shooter)
         {
             return;
@@ -66,7 +69,7 @@ public class Projectile : MonoBehaviour
         else
         {
             collision.gameObject.GetComponent<HealthComponent>().Health -= Damage;
-            if (--Pierce > 0)
+            if (Pierce-- > 0)
             {
                 return;
             }

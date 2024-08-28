@@ -302,7 +302,6 @@ MonoBehaviour:
   WeaponObject: {fileID: 0}
   Weapon: {fileID: 0}
   cooldown: 0
-  isMelee: 0
 --- !u!114 &5676127319650923471
 MonoBehaviour:
   m_ObjectHideFlags: 0

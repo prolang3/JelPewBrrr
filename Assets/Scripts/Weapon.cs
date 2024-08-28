@@ -45,9 +45,7 @@ public class Weapon : MonoBehaviour
             isFacingRight = false;
             spriteRenderer.flipY = true;
             WeaponObject.transform.localPosition = Quaternion.Euler(0f, 0f, angle) * new Vector2(newOffset.x, -newOffset.y);
-        }
-
-        
+        }        
     }
 
     public GameObject Fire(Vector3 targetPosition)
@@ -80,4 +78,3 @@ public class Weapon : MonoBehaviour
         return newBullet;
     }
 }
-
