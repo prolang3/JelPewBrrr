@@ -12,6 +12,8 @@ public class UICheckTestScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
+
         if (!Target)
         {
             Target = GameObject.FindGameObjectWithTag("Player").GetComponent<HealthComponent>();

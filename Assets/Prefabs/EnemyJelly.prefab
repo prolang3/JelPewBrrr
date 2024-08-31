@@ -314,12 +314,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd2500abc7616b4984af63d0ef7dcff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnHit:
+  OnFire:
     m_PersistentCalls:
       m_Calls: []
   WeaponData: {fileID: 11400000, guid: 3eaf5ff24ad54e447985a11a79c247c5, type: 2}
   Name: Dagger
-  UseDelay: 0.2
   spriteRenderer: {fileID: 0}
   User: {fileID: 0}
   WeaponObject: {fileID: 0}

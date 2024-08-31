@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4971bc9df66023743a38f88d8319b246, type: 3}
   m_Name: WaveData
   m_EditorClassIdentifier: 
+  Waves: 2
   WaveDatas:
   - SpawnDatas:
     - Npc: {fileID: 190048311222626753, guid: a521f65053b37a1439228f071ecde071, type: 3}
@@ -25,3 +26,24 @@ MonoBehaviour:
       Amount: 3
     - Npc: {fileID: 6836319447462709652, guid: 75586d6f0307a5d41b9c9af0803dd32a, type: 3}
       Amount: 1
+  - SpawnDatas:
+    - Npc: {fileID: 190048311222626753, guid: a521f65053b37a1439228f071ecde071, type: 3}
+      Amount: 2
+    - Npc: {fileID: 5972968104024206967, guid: 2d2a233a1015cd041b0fe7d0c3bed8d0, type: 3}
+      Amount: 3
+    - Npc: {fileID: 6836319447462709652, guid: 75586d6f0307a5d41b9c9af0803dd32a, type: 3}
+      Amount: 2
+  - SpawnDatas:
+    - Npc: {fileID: 190048311222626753, guid: a521f65053b37a1439228f071ecde071, type: 3}
+      Amount: 3
+    - Npc: {fileID: 5972968104024206967, guid: 2d2a233a1015cd041b0fe7d0c3bed8d0, type: 3}
+      Amount: 5
+    - Npc: {fileID: 6836319447462709652, guid: 75586d6f0307a5d41b9c9af0803dd32a, type: 3}
+      Amount: 3
+  - SpawnDatas:
+    - Npc: {fileID: 190048311222626753, guid: a521f65053b37a1439228f071ecde071, type: 3}
+      Amount: 6
+    - Npc: {fileID: 5972968104024206967, guid: 2d2a233a1015cd041b0fe7d0c3bed8d0, type: 3}
+      Amount: 8
+    - Npc: {fileID: 6836319447462709652, guid: 75586d6f0307a5d41b9c9af0803dd32a, type: 3}
+      Amount: 5
