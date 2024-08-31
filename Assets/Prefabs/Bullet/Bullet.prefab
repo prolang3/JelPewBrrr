@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shooter: {fileID: 0}
-  speed: 20
+  speed: 35
   lifeTime: 5
   Damage: 1
   rb: {fileID: 7628995420921648305}

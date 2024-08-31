@@ -9,6 +9,12 @@ public class CameraHandler : MonoBehaviour
     public float ShakeIntensity = 0.1f;
 
     private Vector3 shakeOffset;
+    private Vector3 screenCenter;
+
+    void Awake()
+    {
+        screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +28,10 @@ public class CameraHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = shakeOffset + Target.transform.position + new Vector3(0, 0, -10);
+
+        Vector3 mouseOffset = new Vector3((Input.mousePosition.x - screenCenter.x) / (Screen.width / 10), (Input.mousePosition.y - screenCenter.y) / (Screen.height / 10));
+
+        gameObject.transform.position = mouseOffset + shakeOffset + Target.transform.position + new Vector3(0, 0, -10);
     }
 
     public void Shake()//float? duration, float? intensity
