@@ -25,7 +25,7 @@ public class DaggerSlash : Projectile
         Collider2D[]  hitColliders = Physics2D.OverlapCircleAll(transform.position, .6f);
         foreach (var hitCollider in hitColliders)
         {
-            if (hitCollider.gameObject != Shooter && !hitCollider.gameObject.CompareTag("Bullet") && hitCollider.GetComponent<HealthComponent>() != null && !IgnoreList.Contains(hitCollider))
+            if (CheckTeam(hitCollider) && hitCollider.GetComponent<HealthComponent>() != null && !IgnoreList.Contains(hitCollider))
             {
                 IgnoreList.Add(hitCollider);
                 hitCollider.gameObject.GetComponent<HealthComponent>().Health -= Damage;

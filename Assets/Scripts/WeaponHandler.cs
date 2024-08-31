@@ -41,7 +41,7 @@ public class WeaponHandler : MonoBehaviour
     {
         if (cooldown <= 0)
         {
-            cooldown = Weapon.UseDelay;
+            cooldown = Weapon.WeaponData.UseDelay;
             GameObject bullet = Weapon.Fire(mouseWorldPos);
             if (Weapon.WeaponData.isMelee == true)
             {

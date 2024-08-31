@@ -48,21 +48,30 @@ public class Projectile : MonoBehaviour
         transform.rotation = rot;
     }
 
-    public virtual void OnTriggerEnter2D(Collider2D collision)
+    public virtual bool CheckTeam(Collider2D collision)
     {
         if (collision == null || collision.gameObject == null || Shooter == null)
         {
-            return;
+            return false;
         }
         if (collision.gameObject.CompareTag(Shooter.tag) || collision.gameObject.CompareTag("Bullet") || collision.gameObject.CompareTag("Room"))
         {
-            return;
+            return false;
         }
         if (collision.gameObject == Shooter)
         {
+            return false;
+        }
+        return true;
+    }
+
+    public virtual void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!CheckTeam(collision))
+        {
             return;
         }
-        if (collision.gameObject.GetComponent<HealthComponent>() == null)
+            if (collision.gameObject.GetComponent<HealthComponent>() == null)
         {
             Destroy(gameObject);
         }

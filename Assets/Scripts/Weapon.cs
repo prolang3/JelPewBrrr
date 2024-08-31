@@ -6,12 +6,12 @@ using UnityEngine.Events;
 
 public class Weapon : MonoBehaviour
 {
-    public UnityEvent OnHit;
+
+    public UnityEvent OnFire;
 
     public WeaponData WeaponData;
 
     public string Name = "Sample Text";
-    public float UseDelay;
 
     public SpriteRenderer spriteRenderer;
     private bool isFacingRight = true;
@@ -23,8 +23,6 @@ public class Weapon : MonoBehaviour
         User = user;
         WeaponObject = weapon;
         spriteRenderer.sprite = WeaponData.Sprite;
-
-        UseDelay = WeaponData.UseDelay;
     }
 
     public void UpdateLocalPosition(Vector3 originPosition, Vector3 targetPosition)
@@ -75,6 +73,7 @@ public class Weapon : MonoBehaviour
             Destroy(go, 1);
         }
 
+        OnFire.Invoke();
         return newBullet;
     }
 }

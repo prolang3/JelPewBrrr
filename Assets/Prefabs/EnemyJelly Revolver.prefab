@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: MinRange
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3273482083870366621, guid: 4a73412c951f26441bc6f1aab61f6841, type: 3}
+      propertyPath: AttackBurstCooldown
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 6055658412486629975, guid: 4a73412c951f26441bc6f1aab61f6841, type: 3}
       propertyPath: Speed
       value: 4
