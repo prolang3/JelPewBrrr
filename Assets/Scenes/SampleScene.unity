@@ -282,7 +282,7 @@ MonoBehaviour:
   isActivated: 0
   SpawnLocation: []
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!4 &129500351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2565396000144337425, guid: 2d2a233a1015cd041b0fe7d0c3bed8d0, type: 3}
@@ -59523,7 +59523,7 @@ MonoBehaviour:
   isActivated: 0
   SpawnLocation: []
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!1001 &834540173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59927,7 +59927,7 @@ MonoBehaviour:
   isActivated: 0
   SpawnLocation: []
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!4 &1026294227
 Transform:
   m_ObjectHideFlags: 0
@@ -60091,7 +60091,7 @@ MonoBehaviour:
   isActivated: 0
   SpawnLocation: []
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!4 &1121609059 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2565396000144337425, guid: 2d2a233a1015cd041b0fe7d0c3bed8d0, type: 3}
@@ -60613,7 +60613,7 @@ MonoBehaviour:
   isActivated: 0
   SpawnLocation: []
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!1001 &1270608647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61244,7 +61244,7 @@ MonoBehaviour:
   isActivated: 0
   SpawnLocation: []
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!1001 &1735393056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -61387,7 +61387,7 @@ MonoBehaviour:
   SpawnLocation:
   - {x: 0, y: 0}
   SpawnedEnemys: []
-  WaveData: {fileID: 0}
+  waveData: {fileID: 0}
 --- !u!4 &1754963132
 Transform:
   m_ObjectHideFlags: 0

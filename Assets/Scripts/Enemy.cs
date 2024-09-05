@@ -48,6 +48,11 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (target == null)
+        {
+            return;
+        }
+
         weapon.UpdateLocalPosition(transform.position, target.transform.position);
 
         if (target.transform.position.x < transform.position.x)

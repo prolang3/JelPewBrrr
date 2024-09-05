@@ -29,6 +29,11 @@ public class CameraHandler : MonoBehaviour
     void Update()
     {
 
+        if (Target == null)
+        {
+            return;
+        }
+
         Vector3 mouseOffset = new Vector3((Input.mousePosition.x - screenCenter.x) / (Screen.width / 10), (Input.mousePosition.y - screenCenter.y) / (Screen.height / 10));
 
         gameObject.transform.position = mouseOffset + shakeOffset + Target.transform.position + new Vector3(0, 0, -10);

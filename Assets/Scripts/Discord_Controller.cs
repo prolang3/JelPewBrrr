@@ -11,9 +11,12 @@ public class Discord_Controller : MonoBehaviour
     public string largeImage = "game_logo";
     public string largeText = "Jelly is Slayer (prototype)";
 
+    private GameObject player;
     private Rigidbody2D rb;
     private HealthComponent health;
     private long time;
+
+    private string currentString;
 
     private static bool instanceExists;
     public Discord.Discord discord;
@@ -37,8 +40,9 @@ public class Discord_Controller : MonoBehaviour
         // Log in with the Application ID
         discord = new Discord.Discord(applicationID, (System.UInt64)Discord.CreateFlags.NoRequireDiscord);
 
-        rb = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
-        health = GameObject.FindWithTag("Player").GetComponent<HealthComponent>();
+        player = GameObject.FindWithTag("Player");
+        rb = player.GetComponent<Rigidbody2D>();
+        health = player.GetComponent<HealthComponent>();
         time = System.DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
         UpdateStatus();
@@ -46,6 +50,15 @@ public class Discord_Controller : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+        if (player != null && health == null)
+        {
+            health = player.gameObject.GetComponent<HealthComponent>();
+        }
+
         // Destroy the GameObject if Discord isn't running
         try
         {
@@ -64,6 +77,15 @@ public class Discord_Controller : MonoBehaviour
 
     void UpdateStatus()
     {
+        if (player == null || health == null)
+        {
+            currentString = ":JellyDeath:";
+        }
+        else
+        {
+            currentString = state + health.Health + " / " + health.MaxHealth;
+        }
+
         // Update Status every frame
         try
         {
@@ -71,7 +93,7 @@ public class Discord_Controller : MonoBehaviour
             var activity = new Discord.Activity
             {
                 Details = details,
-                State = state + health.Health + " / " + health.MaxHealth,
+                State = currentString,
                 Assets =
                 {
                     LargeImage = largeImage,
