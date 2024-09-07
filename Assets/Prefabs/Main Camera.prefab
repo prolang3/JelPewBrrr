@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Music: {fileID: 8300000, guid: a556951d671ffbf49b1756b9055f4285, type: 3}
   Volume: 0.22
+  DontPlay: 1
 --- !u!114 &9095323575813408795
 MonoBehaviour:
   m_ObjectHideFlags: 0
