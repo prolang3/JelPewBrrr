@@ -3,20 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EquipmentComponent : MonoBehaviour
-{
-    public int MaxHealthIncrease = 0;
-    public int BaseDamageIncrease = 0;
-    public int DefenceIncrease = 0;
+{ 
+    public List<Item> Items = new();
+    public delegate void OnAttackHandler();
+    public event OnAttackHandler OnAttack;
 
-    // Start is called before the first frame update
-    void Start()
+    public Dictionary<Stat, float> GetStats()
     {
-        
+        Dictionary<Stat, float> statBonusList = new();
+
+        foreach (Item item in Items)
+        {
+            foreach (KeyValuePair<Stat, float> statBonus in item.StatBonuses)
+            {
+                if (statBonusList.ContainsKey(statBonus.Key))
+                {
+                    statBonusList[statBonus.Key] += statBonus.Value;
+                }
+                else
+                {
+                    statBonusList.Add(statBonus.Key, statBonus.Value);
+                }
+
+                OnAttack?.Invoke();
+            }
+        }
+        return statBonusList;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }
